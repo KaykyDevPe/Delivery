@@ -1,5 +1,12 @@
 from django.shortcuts import render
-
+from .models import Produto, Categoria,  Opcoes, Adicional
 
 def home(request):
-    return render(request, 'home.html', {'nome': 'Kayky'})
+    if not request.session.get('carrinho'):
+        request.session['carrinho'] = []
+        request.session.save()
+    produtos = Produto.objects.all()    
+    categorias = Categoria.objects.all()    
+    return render(request, 'home.html', {'produtos': produtos,
+                                         'carrinho': len(request.session['carrinho']),
+                                         'categorias': categorias})
