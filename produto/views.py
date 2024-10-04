@@ -10,3 +10,28 @@ def home(request):
     return render(request, 'home.html', {'produtos': produtos,
                                          'carrinho': len(request.session['carrinho']),
                                          'categorias': categorias})
+
+
+def categoria(request, id):
+    if not request.session.get('carrinho'):
+        request.session['carrinho'] = []
+        request.session.save()
+    produtos = Produto.objects.filter(id=id)
+    categorias = Categoria.objects.all()
+
+    return render(request, 'home.html', {'produtos': produtos,
+                                         'carrinho': len(request.session['carrinho']),
+                                         'categorias': categorias})
+    
+    
+def produto(request, id):
+    if not request.session.get('carrinho'):
+        request.session['carrinho'] = []
+        request.session.save()
+    erro = request.GET.get('erro')
+    produto = Produto.objects.filter(id=id)[0]
+    categorias = Categoria.objects.all()
+    return render(request, 'produto.html', {'produto': produto, 
+                                            'carrinho': len(request.session['carrinho']),
+                                            'categorias': categorias,
+                                            'erro': erro})
