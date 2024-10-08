@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponse
 from .models import Produto, Categoria,  Opcoes, Adicional
+
 
 def home(request):
     if not request.session.get('carrinho'):
@@ -35,3 +36,14 @@ def produto(request, id):
                                             'carrinho': len(request.session['carrinho']),
                                             'categorias': categorias,
                                             'erro': erro})
+    
+
+def add_carrinho(request):
+    if not request.session.get('carrinho'):
+        request.session['carrinho'] = []
+        request.session.save()
+    
+    x = dict(request.POST)
+    return HttpResponse(x.items())
+        
+    
