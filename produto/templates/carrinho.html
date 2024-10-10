@@ -1,5 +1,5 @@
 {%extends 'base.html'%}
-
+{% load filtros %}
 
 {% block 'conteudo'%}
 <br>
@@ -16,13 +16,13 @@
       </tr>
     </thead>
     <tbody>
-    {% for i in dados%}
+    {% for j, i in dados|enumerate %}
       <tr>
         <th><img src="{{i.imagem}}" width="50px"></th>
         <td>{{i.nome}}</td>
         <td>{{i.quantidade}}</td>
-        <td>{{i.preco}}0</td>
-        <td><a href="" class="btn btn-danger">Remover</a></td>
+        <td>R${{i.preco}}0</td>
+        <td><a href="{% url 'remover_carrinho' j%}" class="btn btn-danger">Remover</a></td>
       </tr>
       {% endfor %}
     </tbody>
@@ -30,7 +30,7 @@
   <h3>Frete: R${{frete}}0</h3>
   <h1 class="titulo">Total: </h1>
   <h2 style="color: gray;">&nbsp R${{total}}0</h2>
-  <a href="" class="btn btn-success">Finalizar compra</a>
+  <a href="" class= "btn btn-success">Finalizar compra</a>
   <a href="{% url 'home'%}" class="btn btn-primary">Continuar comprando</a>
 </div>
 {%endblock%}
