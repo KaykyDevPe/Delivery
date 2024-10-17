@@ -1,6 +1,6 @@
 # Delivery
 
-Aplicação WEB, para restaurantes e lojas que trabalham com o sistema de delivery, cálculo automático na seleção de produtos, cupom de desconto e uma administração completa com grupos e permissões de usuários. Feito com Python, Django, JavaScrip, API's como "ViaCEP", HTML e CSS. Backend + Frontend + Estruturação do Banco de Dados.
+Aplicação WEB, para restaurantes e lojas que trabalham com o sistema de delivery, cálculo automático na seleção de produtos, cupom de desconto e uma administração completa com grupos e permissões de usuários. Feito com Python, Django, JavaScript, API's como "ViaCEP", HTML e CSS. Backend + Frontend + Estruturação do Banco de Dados.
 
 ## Comece por aqui
 
