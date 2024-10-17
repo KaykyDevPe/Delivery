@@ -1,5 +1,7 @@
 # Delivery
 
+Aplicação WEB, para restaurantes e lojas que trabalham com o sistema de delivery, cálculo automático na seleção de produtos, cupom de desconto e uma administração completa com grupos e permissões de usuários. Feito com Python/Django, JavaScrip, API's, HTML e CSS. Backend + Frontend + Estruturação do Banco de Dados.
+
 ## Comece por aqui
 
 Vou assumir que para chegar ate aqui você já tenha o python instalado no seu PC. Portanto, ao clonar o projeto, primeiro execute o comando; `python -m venv venv` - para criar o ambiente virtual.
