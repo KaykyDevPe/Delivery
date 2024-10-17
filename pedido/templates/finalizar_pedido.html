@@ -32,11 +32,11 @@
 
                 //Consulta o webservice viacep.com.br/
                 $.getJSON("https://viacep.com.br/ws/"+ cep +"/json/?callback=?", function(dados) {
-                
                     if (!("erro" in dados)) {
                         //Atualiza os campos com os valores da consulta.
                         $("#rua").val(dados.logradouro);
                         $("#bairro").val(dados.bairro);
+                        $("#cidade").val(dados.localidade);
                    
                     } //end if.
                     else {
@@ -98,9 +98,7 @@
 
           <br>
           <h3 class="rosa">Cidade*:</h3>
-          <select class="form-control">
-            <option selected>Santa rita do passa quatro</option>
-          </select>
+          <input type="text" required="required" class="form-control" placeholder="Cidade" id="cidade" name="cidade">
 
           <br>
           <h3 class="rosa">Rua*:</h3>
@@ -188,24 +186,29 @@ teste
 function validaCupom(){
    cupom = document.getElementById('inputCupom').value
    $.ajax({
-            url: "{% url 'validaCupom'%}",
+            url: '{% url "validaCupom" %}',
             method: 'post',
             data: {
                 'csrfmiddlewaretoken': '{{ csrf_token }}',
                 'cupom': cupom
             },
             success: function(resposta){
+
               resposta = JSON.parse(resposta)
               div_total = document.getElementById('total')
               msg = document.getElementById('msg')
+
               if(resposta['status'] == 1){
                 div_total.innerHTML = 'Total: R${{total}}0'
                 msg.innerHTML = "Cupom inválido"
                 msg.style.color = 'red'
+
               }else{
+
                 div_total.innerHTML = 'De: <s>R${{total}}0</s> Por R$' + resposta['total_com_desconto'] + '0'
                 msg.innerHTML = resposta['desconto'] + "% aplicado com sucesso"
                 msg.style.color = 'green'
+                
               }
                 
 

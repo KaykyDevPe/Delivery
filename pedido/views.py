@@ -3,6 +3,7 @@ from django.shortcuts import redirect, render
 from django.http import HttpResponse
 from .models import Pedido, ItemPedido, CupomDesconto
 from produto.models import Produto, Categoria
+import json
 
 def finalizar_pedido(request):
     if request.method == "GET":
@@ -62,8 +63,6 @@ def finalizar_pedido(request):
                     preco = v['preco'],
                     adicionais = str(v['adicionais'])
                 ) for v in listaCarrinho
-
-
             )
         
             request.session['carrinho'].clear()
@@ -71,3 +70,19 @@ def finalizar_pedido(request):
             return render(request, 'pedido_realizado.html')
         else:
             return redirect('/pedidos/finalizar_pedido?erro=1')
+        
+def validaCupom(request):
+    cupom = request.POST.get('cupom')
+    cupom = CupomDesconto.objects.filter(codigo = cupom)
+    if len(cupom) > 0 and cupom[0].ativo:
+        desconto = cupom[0].desconto
+        total = sum([float(i['preco']) for i in request.session['carrinho']])
+        total_com_desconto = total - ((total*desconto)/100)
+        data_json = json.dumps({'status': 0,
+                                'desconto': desconto,
+                                'total_com_desconto': str(total_com_desconto).replace('.', ',')
+
+                                })
+        return HttpResponse(data_json)
+    else:
+        return HttpResponse(json.dumps({'status': 1}))
